@@ -1,0 +1,14 @@
+steps:
+  # build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'cotizaFreePDN:${SHORT_SHA}', '.']
+  # push the container image to Artifact (Antes Container Registry)
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'cotizaFreePDN:${SHORT_SHA}']
+  # deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'cotizaTrabajoFree', '--image', 'cotizaFreePDN:${SHORT_SHA}','--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
+  env:
+    - 'PORT=8080'
+images:
+  - cotizaFreePDN

@@ -1,0 +1,87 @@
+<main>
+  <div class="pricing-header p-3 pb-md-4 mx-auto">
+    <div class="container-lg">
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="mb-3 row">
+          <h1 class="text-center">{{titleWorkOrderCustom}}</h1>
+          <p>Llena la informacion relevante para crear la cotizacion:</p>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Lugar de creacion de Cotizacion: </label>
+            <input class="form-control" type="text" name="namePlace" id="namePlace" [(ngModel)]='namePlace'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Fecha de creacion de Cotizacion: </label>
+            <input class="form-control" type="text" name="nameDateCreation" id="nameDateCreation" [(ngModel)]='nameDateCreation'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Nit de cliente: </label>
+            <input class="form-control" type="text" name="idSourceUser" id="idSourceUser" [(ngModel)]='idSourceUser'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Su nit: </label>
+            <input class="form-control" type="text" name="idTargetUser" id="idTargetUser" [(ngModel)]='idTargetUser'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Fecha de solicitud de Cotizacion: </label>
+            <input class="form-control" type="text" name="nameDateRequest" id="nameDateRequest" [(ngModel)]='nameDateRequest'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Nombre a la persona dirigida la Cotizacion: </label>
+            <input class="form-control" type="text" name="nameTargetUser" id="nameTargetUser" [(ngModel)]='nameTargetUser'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Concepto de la Cotizacion: </label>
+            <input class="form-control" type="text" name="conceptName" id="conceptName" [(ngModel)]='conceptName'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Valor de la Cotizacion: </label>
+            <input class="form-control" type="text" name="conceptValue" id="conceptValue" [(ngModel)]='conceptValue'>
+          </div>
+          <div class="col-md-12 col-lg-6">
+            <label class="form-label">Nombre que crea la Cotizacion: </label>
+            <input class="form-control" type="text" name="nameSourceUser" id="nameSourceUser" [(ngModel)]='nameSourceUser'>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="container-lg">
+      <div class="mb-3 row" >
+        <h2>Resultado previo a cotizacion:</h2>
+        <div *ngIf="namePlace != ''; then blockPrintOrder" class="col-sm-12"></div>
+        <ng-template #blockPrintOrder>
+            <div class="card" id="pdfTable" #pdfTable>
+              <div class="card-body">
+                <p class="card-title">{{namePlace}}, {{nameDateCreation}}</p>
+                <br/>
+                <br/>
+                <h5 class="card-text text-center" style="text-align: center">
+                  {{nameTargetUser}}<br/>
+                  Nit: {{idTargetUser}}<br/>
+                </h5>
+                <br/>
+                <br/>
+                <p class="card-text text-center" style="text-align: center">Debe a:</p>
+               <p class="card-text text-center"  style="text-align: center">
+                {{nameSourceUser}}<br/>
+                Nit: {{idSourceUser}}
+               </p>
+              <br/>
+              <br/>
+              <p class="card-text text-center" style="text-align: center">La suma de $ {{conceptValue}}.</p>
+              <br/>
+              <br/>
+                <p class="card-text">Por el concepto de {{conceptName}}, servicio dado el {{nameDateRequest}}.</p>
+                <br/>
+                <br/>
+                <p class="card-text">Atentamente,</p>
+                <br/>
+                <p class="card-text">{{nameSourceUser}}.</p>
+              </div>
+            </div>
+        </ng-template>
+      </div>
+
+    </div>
+    <button class="btn btn-danger" (click)="exportPDF();">Generar PDF</button>
+  </div>
+</main>
