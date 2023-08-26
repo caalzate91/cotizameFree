@@ -2,10 +2,10 @@ FROM node:16-alpine3.16 as build
 WORKDIR /app
 COPY ./package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY /. /.
-RUN npm run build start
+RUN npm run build
 
 FROM nginx:1.23.0-alpine
 EXPOSE 8080
